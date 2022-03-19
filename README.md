@@ -11,10 +11,10 @@ simple partial modal view
 ## in 30sec
 
 ### light mode
-https://user-images.githubusercontent.com/6419800/159105241-3200b3ef-d6c3-4ddc-9873-15db9a288ed8.mp4
+https://user-images.githubusercontent.com/6419800/159105246-424e3fa8-b6a7-46a2-9499-351e0f245eaf.mp4
 
 ### dark mode
-https://user-images.githubusercontent.com/6419800/159105246-424e3fa8-b6a7-46a2-9499-351e0f245eaf.mp4
+https://user-images.githubusercontent.com/6419800/159105241-3200b3ef-d6c3-4ddc-9873-15db9a288ed8.mp4
 
 ## usage
 need to use together with ZStack.
