@@ -10,7 +10,6 @@ import SwiftUI
 public struct PartialModalView<Content: View>: View {
     @Binding var isPresenting: Bool
     @State private var sheetHeight: CGFloat = 300
-    @State private var fieldString = "Hello"
     var partialView: Content
 
     let closeThreshold: CGFloat = 30.0
@@ -24,9 +23,7 @@ public struct PartialModalView<Content: View>: View {
         let sheetCloseGesture = DragGesture(minimumDistance: 0.1)
             .onChanged({ value in
                 if value.translation.height > closeThreshold {
-                    withAnimation {
-                        isPresenting = false
-                    }
+                    sheetClose()
                 }
             })
         VStack(spacing:0) {
@@ -37,7 +34,7 @@ public struct PartialModalView<Content: View>: View {
             }
             .gesture(sheetCloseGesture)
             .background(sheetBackground)
-            .offset(y: isPresenting ? 0: sheetHeight + 30) // offset a little bit more because of safe area on iOS
+            .offset(y: isPresenting ? 0 : sheetHeight + 40) // offset a little bit more because of safe area on iOS, might be replaced with SafeAreaInsets
             .onPreferenceChange(FrameViewRectPreferenceKey.self, perform: { prefs in
                 for pref in prefs {
                     if pref.name == "viewgeom" {
@@ -47,6 +44,14 @@ public struct PartialModalView<Content: View>: View {
             })
         }
     }
+    
+    func sheetClose() {
+        withAnimation {
+            isPresenting.toggle()
+        }
+        // need to close keyboard from here?, basically we should use FocusState instead
+    }
+    
     @ViewBuilder
     var sheetBar: some View {
         ZStack {
@@ -54,7 +59,7 @@ public struct PartialModalView<Content: View>: View {
                 .padding()
             HStack(spacing:0) {
                 Spacer()
-                Button(action: { withAnimation { isPresenting.toggle() } }, label:  {
+                Button(action: { sheetClose() }, label:  {
                     Image(systemName: "xmark.circle").resizable().scaledToFit().frame(width: 25)
                 })
                 .padding(.trailing, 12)
@@ -65,8 +70,8 @@ public struct PartialModalView<Content: View>: View {
     @ViewBuilder
     var sheetBackground: some View {
         GeometryReader { viewGeom in
-            RoundedRectangle(cornerRadius: 10).fill(Color("SheetBackground", bundle: .module))
-                .frame(height: viewGeom.frame(in: .local).height + 30)
+            RoundedRectangle(cornerRadius: 10).fill(Color("SheetBackground", bundle: .module)) // == SystemGray3 (but keep inside for macOS)
+                .frame(height: viewGeom.frame(in: .local).height + viewGeom.safeAreaInsets.bottom)
                 .preference(key: FrameViewRectPreferenceKey.self, value: [FrameViewRectPreferenceData(name: "viewgeom", rect: viewGeom.frame(in: .local))])
         }
     }
