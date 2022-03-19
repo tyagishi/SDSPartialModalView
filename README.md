@@ -1,5 +1,11 @@
 # SDSPartialModalView
 
+![macOS iOS](https://img.shields.io/badge/platform-iOS_macOS-lightgrey)
+![iOS](https://img.shields.io/badge/iOS-v15_orLater-blue)
+![macOS](https://img.shields.io/badge/macOS-Monterey_orLater-blue)
+![SPM is supported](https://img.shields.io/badge/SPM-Supported-orange)
+![license](https://img.shields.io/badge/license-MIT-lightgrey)
+
 simple partial modal view
 
 ## in 30sec

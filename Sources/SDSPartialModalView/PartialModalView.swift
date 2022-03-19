@@ -65,7 +65,7 @@ public struct PartialModalView<Content: View>: View {
     @ViewBuilder
     var sheetBackground: some View {
         GeometryReader { viewGeom in
-            RoundedRectangle(cornerRadius: 10).fill(Color("SheetBackground"))
+            RoundedRectangle(cornerRadius: 10).fill(Color("SheetBackground", bundle: .module))
                 .frame(height: viewGeom.frame(in: .local).height + 30)
                 .preference(key: FrameViewRectPreferenceKey.self, value: [FrameViewRectPreferenceData(name: "viewgeom", rect: viewGeom.frame(in: .local))])
         }
