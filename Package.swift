@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "SDSPartialModalView",
     platforms: [
-        .iOS(.v15),
+        .iOS(.v14),
         .macOS(.v12),
     ],
     products: [

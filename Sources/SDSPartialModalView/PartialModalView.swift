@@ -22,7 +22,8 @@ public struct PartialModalView<Content: View>: View {
     public var body: some View {
         let sheetCloseGesture = DragGesture(minimumDistance: 0.1)
             .onChanged({ value in
-                if value.translation.height > closeThreshold {
+                if value.translation.height > closeThreshold,
+                   isPresenting {
                     sheetClose()
                 }
             })
