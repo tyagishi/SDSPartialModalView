@@ -10,12 +10,14 @@ import SwiftUI
 public struct PartialModalView<Content: View>: View {
     @Binding var isPresenting: Bool
     @State private var sheetHeight: CGFloat = 300
+    let willClose: (()->())?
     var partialView: Content
 
     let closeThreshold: CGFloat = 30.0
 
-    public init(isPresenting: Binding<Bool>, content: () -> Content) {
+    public init(isPresenting: Binding<Bool>, willClose: (() -> ())? = nil, content: () -> Content) {
         self._isPresenting = isPresenting
+        self.willClose = willClose
         self.partialView = content()
     }
     
@@ -48,6 +50,7 @@ public struct PartialModalView<Content: View>: View {
     
     func sheetClose() {
         withAnimation {
+            willClose?()
             isPresenting.toggle()
         }
         // need to close keyboard from here?, basically we should use FocusState instead
