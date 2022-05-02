@@ -15,7 +15,7 @@ public struct PartialModalView<Content: View>: View {
 
     let closeThreshold: CGFloat = 30.0
 
-    public init(isPresenting: Binding<Bool>, willClose: (() -> ())? = nil, content: () -> Content) {
+    public init(isPresenting: Binding<Bool>, willClose: (() -> ())? = nil, @ViewBuilder content: (() -> Content)) {
         self._isPresenting = isPresenting
         self.willClose = willClose
         self.partialView = content()
