@@ -10,13 +10,15 @@ import SwiftUI
 public struct PartialModalView<Content: View>: View {
     @Binding var isPresenting: Bool
     @State private var sheetHeight: CGFloat = 300
+    let horizontalPadding: CGFloat
     let willClose: (()->())?
     var partialView: Content
 
     let closeThreshold: CGFloat = 30.0
 
-    public init(isPresenting: Binding<Bool>, willClose: (() -> ())? = nil, @ViewBuilder content: (() -> Content)) {
+    public init(isPresenting: Binding<Bool>, horizontalPadding: CGFloat = 0, willClose: (() -> ())? = nil, @ViewBuilder content: (() -> Content)) {
         self._isPresenting = isPresenting
+        self.horizontalPadding = horizontalPadding
         self.willClose = willClose
         self.partialView = content()
     }
@@ -46,6 +48,7 @@ public struct PartialModalView<Content: View>: View {
                 }
             })
         }
+        .padding(.horizontal, horizontalPadding)
     }
     
     func sheetClose() {
