@@ -70,6 +70,9 @@ public struct PartialModalView<Content: View>: View {
                     Image(systemName: "xmark.circle").resizable().scaledToFit().frame(width: 25)
                 })
                 .padding(.trailing, 12)
+                #if os(macOS)
+                .buttonStyle(.borderless)
+                #endif
             }
         }
     }
