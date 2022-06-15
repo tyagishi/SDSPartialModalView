@@ -7,12 +7,17 @@
 
 import SwiftUI
 
+extension Notification.Name {
+    public static let partialModalViewWillClose = Notification.Name(rawValue: "PartialModalViewWillClose")
+}
+
 public struct PartialModalView<Content: View>: View {
     @Binding var isPresenting: Bool
     @State private var sheetHeight: CGFloat = 300
     let horizontalPadding: CGFloat
     let willClose: (()->())?
     var partialView: Content
+    
 
     let closeThreshold: CGFloat = 30.0
 
@@ -54,6 +59,7 @@ public struct PartialModalView<Content: View>: View {
     func sheetClose() {
         withAnimation {
             willClose?()
+            NotificationCenter.default.post(name: .partialModalViewWillClose, object: nil)
             isPresenting.toggle()
         }
         // need to close keyboard from here?, basically we should use FocusState instead
